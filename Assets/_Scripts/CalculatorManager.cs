@@ -87,7 +87,10 @@ public class CalculatorManager : MonoBehaviour
     public void Negate()
     {
         GetComponent<AudioSource>().PlayOneShot(sfx_Enter);
-        BottomDisplayField.text = (double.Parse(BottomDisplayField.text) * -1).ToString();
+        if (_nextField)
+            BottomDisplayField.text = (double.Parse(BottomDisplayField.text) * -1).ToString();
+        else
+            TopDisplayField.text = (double.Parse(TopDisplayField.text) * -1).ToString(); 
     }
     public void Equate()
     {
@@ -111,6 +114,8 @@ public class CalculatorManager : MonoBehaviour
             default:
                 break;
         }
+
+        //print("Result can follow from subsequent operators not only equal"); 
         GetComponent<AudioSource>().PlayOneShot(sfx_Enter);
         TopDisplayField.text = result.ToString();
         BottomDisplayField.text = string.Empty;
